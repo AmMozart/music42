@@ -1,23 +1,42 @@
 import React from 'react';
+import { CookiesProvider } from 'react-cookie';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { store } from './app/store';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import './index.css';
 
-const container = document.getElementById('root')!;
+import { BrowserRouter } from 'react-router-dom';
+import { createGlobalStyle } from 'styled-components';
+
+import App from './App';
+import { store } from './app/store';
+import Config from './features/config/Config';
+import Langs from './features/langs/Langs';
+import User from './features/user/User';
+
+const GlobalStyle = createGlobalStyle`
+/* @import 'taildindcss/base';
+@import 'taildindcss/components';
+@import 'taildindcss/utilities'; */
+:root {
+  --white: #FFF;
+}`;
+
+const container = document.getElementById(
+  'container_content_root'
+) as HTMLElement;
 const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <GlobalStyle />
+        <CookiesProvider>
+          <App />
+        </CookiesProvider>
+        <Config />
+        <Langs />
+        <User />
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

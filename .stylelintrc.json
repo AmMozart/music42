@@ -1,0 +1,12 @@
+{
+  "customSyntax": "postcss-styled-syntax",
+  "extends": [
+    "stylelint-config-styled-components",
+    "stylelint-config-standard",
+    "stylelint-config-clean-order"
+  ],
+  "plugins": ["stylelint-order"],
+  "rules": {
+    "custom-property-empty-line-before": "never"
+  }
+}
