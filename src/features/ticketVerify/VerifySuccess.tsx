@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import TicketDetails from './TicketDetails';
 import TicketHeader from './TicketHeader';
 
+import { useLangs } from '../../hooks/useLangs';
+
 const StyledVerifySuccess = styled.section`
   display: flex;
   flex-direction: column;
@@ -39,11 +41,13 @@ const StyledVerifySuccess = styled.section`
 `;
 
 const VerifySuccess: React.FC = () => {
+  const langs = useLangs();
+
   return (
     <StyledVerifySuccess>
       <TicketHeader />
       <FontAwesomeIcon icon={faCircleCheck} className={'icon'} size={'5x'} />
-      <h4>Билет успешно зарегестрирован</h4>
+      <h4>{langs('Ticket registered successfully')}</h4>
       <TicketDetails />
     </StyledVerifySuccess>
   );

@@ -22,9 +22,9 @@ const StyledMessage = styled.div<{ type: TypeMessage }>`
         `;
       case 'error':
         return css`
-          color: #af1e1e;
+          color: #f00;
           background: #ff000024;
-          border-color: #af1e1e;
+          border-color: #b92020;
         `;
       case 'info':
         return css`

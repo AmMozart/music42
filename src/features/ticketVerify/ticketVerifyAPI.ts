@@ -1,10 +1,11 @@
 import { TicketData } from './ticketVerifySlice';
 
+import { FetchData } from '../../app/types';
 import { getHashID } from '../../utils/getHashID';
 
-const getTicketData: (ticketId: number) => Promise<TicketData | null> = async (
-  ticketId
-) => {
+const getTicketData: (
+  ticketId: number
+) => Promise<FetchData<TicketData> | null> = async (ticketId) => {
   const response = await fetch(
     'https://music42.com/endpoints/ticket?' +
       new URLSearchParams({
@@ -22,7 +23,7 @@ const getTicketData: (ticketId: number) => Promise<TicketData | null> = async (
       message: string;
       data: TicketData;
     };
-    return fromServer.data;
+    return fromServer;
   }
   return null;
 };

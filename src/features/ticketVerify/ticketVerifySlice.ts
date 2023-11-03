@@ -10,6 +10,7 @@ interface TicketState {
   verifyState: FetchState | null;
   loadingDataState: FetchState | null;
   data: TicketData | null;
+  message: string;
 }
 
 export interface TicketData {
@@ -37,6 +38,7 @@ const initialState: TicketState = {
   verifyState: null,
   loadingDataState: null,
   data: null,
+  message: '',
 };
 
 const ticketSlice = createSlice({
@@ -48,8 +50,11 @@ const ticketSlice = createSlice({
       state.loadingDataState = 'loading';
     });
     builder.addCase(getData.fulfilled, (state, action) => {
-      state.data = action.payload;
-      state.loadingDataState = action.payload ? 'success' : 'error';
+      if (action.payload) {
+        state.data = action.payload.data;
+        state.loadingDataState = action.payload.data ? 'success' : 'error';
+        state.message = action.payload.message;
+      }
     });
     builder.addCase(getData.rejected, (state) => {
       state.loadingDataState = 'error';
@@ -59,7 +64,10 @@ const ticketSlice = createSlice({
       state.verifyState = 'loading';
     });
     builder.addCase(verify.fulfilled, (state, action) => {
-      state.verifyState = action.payload?.status === 200 ? 'success' : 'error';
+      if (action.payload) {
+        state.verifyState = action.payload.status === 200 ? 'success' : 'error';
+        state.message = action.payload.message;
+      }
     });
     builder.addCase(verify.rejected, (state) => {
       state.verifyState = 'error';
@@ -69,6 +77,8 @@ const ticketSlice = createSlice({
 
 export const data = (state: RootState) => state.ticketVerify.data;
 export const verifyState = (state: RootState) => state.ticketVerify.verifyState;
+export const verifyErrorMessage = (state: RootState) =>
+  state.ticketVerify.message;
 export const loadingDataState = (state: RootState) =>
   state.ticketVerify.loadingDataState;
 

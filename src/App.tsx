@@ -1,12 +1,7 @@
 import React, { useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 
-import CalendarEmployment from './features/calendarEmployment/CalendarEmployment';
-import Podcasts from './features/podcasts/Podcasts';
-import BuyTicket from './features/ticketBuy/TicketBuy';
-import TicketDownload from './features/ticketDownload/TicketDownload';
-import Ticket from './features/ticketVerify/TicketVerify';
-import Profile from './pages/Profile';
+import { routes } from './app/routes';
 
 function App() {
   const navigate = useNavigate();
@@ -36,13 +31,9 @@ function App() {
 
   return (
     <Routes>
-      <Route path='/' element={<></>} />
-      <Route path='podcasts' element={<Podcasts />} />
-      <Route path='calendar/*' element={<CalendarEmployment />} />
-      <Route path='ticket/verify/:hashedTicketId' element={<Ticket />} />
-      <Route path='ticket/buy/:eventId' element={<BuyTicket />} />
-      <Route path='ticket/download' element={<TicketDownload />} />
-      <Route path=':username/:option' element={<Profile />} />
+      {routes.map((route) => (
+        <Route path={route.path} element={<>{route.element}</>} />
+      ))}
     </Routes>
   );
 }

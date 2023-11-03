@@ -13,3 +13,5 @@ export { default as OptionsWindow } from './OptionsWindow/OptionsWindow';
 export { default as OptionItem } from './OptionItem/OptionItem';
 export { default as LoadMore } from './LoadMore/LoadMore';
 export { default as ItemsNoFound } from './ItemsNoFound/ItemsNoFound';
+export { default as FileInput } from './FileInput/FileInput';
+export { default as DateTimeTablo } from './DateTimeTablo/DateTimeTablo';

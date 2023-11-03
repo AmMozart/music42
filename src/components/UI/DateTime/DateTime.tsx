@@ -1,7 +1,9 @@
-import React from 'react';
+import flatpickr from 'flatpickr';
+import { BaseOptions } from 'flatpickr/dist/types/options';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
-const StyledInput = styled.div`
+const StyledDateTime = styled.div`
   position: relative;
   margin-bottom: 15px;
 
@@ -62,29 +64,38 @@ const StyledInput = styled.div`
   }
 `;
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface DateTimeProps extends React.InputHTMLAttributes<HTMLInputElement> {
   title?: string;
+  options?: Partial<BaseOptions>;
 }
 
-const Input: React.FC<InputProps> = ({
+const DateTime: React.FC<DateTimeProps> = ({
   value,
-  type,
   onChange,
   title,
+  options,
   ...props
 }) => {
+  const ref = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      flatpickr(ref.current, options);
+    }
+  });
+
   return (
-    <StyledInput>
+    <StyledDateTime>
       <input
-        type={type}
+        ref={ref}
         placeholder=' '
         onChange={onChange}
         value={value}
         {...props}
       />
       <label>{title}</label>
-    </StyledInput>
+    </StyledDateTime>
   );
 };
 
-export default React.memo(Input);
+export default React.memo(DateTime);

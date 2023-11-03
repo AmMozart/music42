@@ -13,6 +13,7 @@ import {
 } from './ticketDownloadSlice';
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useLangs } from '../../hooks/useLangs';
 
 const StyledTicketDownload = styled.section`
   display: flex;
@@ -59,6 +60,7 @@ const TicketDownload: React.FC = () => {
   const currentTicketIds = useAppSelector(ticketIds);
   const html = useAppSelector(ticketHtml);
   const [cookies] = useCookies(['buy_tickets']);
+  const langs = useLangs();
 
   useEffect(() => {
     const ids = decodeURIComponent(cookies.buy_tickets).split(',');
@@ -80,12 +82,19 @@ const TicketDownload: React.FC = () => {
 
   return (
     <StyledTicketDownload>
-      <h4>Поздравляем!</h4>
-      <h5>Вы купили билеты: {currentTicketIds.length} шт. </h5>
+      <h4>{langs('Congratulations')}!</h4>
+      <h5>
+        {langs('You bought a ticket')}: {currentTicketIds.length} {langs('pcs')}
+        .{' '}
+      </h5>
       <FontAwesomeIcon icon={faCircleCheck} className={'icon'} size={'5x'} />
-      <h6>Нажмите кнопку "Скачать" и они загрузятся на ваше устройство</h6>
+      <h6>
+        {langs(
+          'Click the "Download" button and they will download to your device'
+        )}
+      </h6>
       <button className={'download-button'} onClick={download}>
-        Скачать
+        {langs('Download')}
       </button>
       <div id='ticket_container' ref={ref}></div>
     </StyledTicketDownload>

@@ -2,10 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledModal = styled.section`
+  cursor: pointer;
+
   position: fixed;
   z-index: 999;
   inset: 0;
 
+  overflow: scroll;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,8 +16,9 @@ const StyledModal = styled.section`
   background: rgb(0 0 0 / 80%);
 
   & .content {
+    cursor: default;
+
     width: 600px;
-    padding: 20px;
 
     color: #d2d2d2;
 

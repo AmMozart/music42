@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { data } from './ticketVerifySlice';
 
 import { useAppSelector } from '../../app/hooks';
+import { useLangs } from '../../hooks/useLangs';
 
 const StyledTicketDetails = styled.section`
   & div {
@@ -24,25 +25,26 @@ const StyledTicketDetails = styled.section`
 
 const TicketDetails: React.FC = () => {
   const ticketData = useAppSelector(data);
+  const langs = useLangs();
 
   return (
     <StyledTicketDetails>
       {ticketData?.DateOfUse && (
         <div>
-          <span className={'details-title'}>Дата использования:</span>
+          <span className={'details-title'}>{langs('Date of use')}:</span>
           <span>{ticketData.DateOfUse.toString()}</span>
         </div>
       )}
       <div>
-        <span className={'details-title'}>Номер заказа:</span>
+        <span className={'details-title'}>{langs('Order number')}:</span>
         <span>{ticketData?.ticketId}</span>
       </div>
       <div>
-        <span className={'details-title'}>Имя пользователя:</span>
+        <span className={'details-title'}>{langs('Name')}:</span>
         <span>{ticketData?.userName}</span>
       </div>
       <div>
-        <span className={'details-title'}>Email пользователя:</span>
+        <span className={'details-title'}>{langs('Email')}:</span>
         <span>{ticketData?.userEmail}</span>
       </div>
     </StyledTicketDetails>

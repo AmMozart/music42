@@ -3,6 +3,7 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import calendar from '../features/calendarEmployment/calendarSlice';
 import config from '../features/config/configSlice';
 import expressSignUp from '../features/expressSignUp/expressSignUpSlice';
+import garage from '../features/garage/garage.slice';
 import langs from '../features/langs/langs.slice';
 import podcasts from '../features/podcasts/podcasts.slice';
 import profilePictures from '../features/profilePictures/profilePictures.slice';
@@ -17,6 +18,7 @@ export const store = configureStore({
     user,
     langs,
     config,
+    garage,
     calendar,
     podcasts,
     ticketBuy,

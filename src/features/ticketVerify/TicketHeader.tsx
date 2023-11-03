@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { data } from './ticketVerifySlice';
 
 import { useAppSelector } from '../../app/hooks';
+import { useLangs } from '../../hooks/useLangs';
 
 const StyledTicketHeader = styled.section`
   display: flex;
@@ -29,14 +30,17 @@ const StyledTicketHeader = styled.section`
 
 const TicketHeader: React.FC = () => {
   const ticketData = useAppSelector(data);
+  const langs = useLangs();
 
   return (
     <StyledTicketHeader>
-      <h3>Проверка билета на событие</h3>
+      <h3>{langs('Checking your event ticket')}</h3>
       <span className={'event-name'}>{ticketData?.eventName}</span>
-      <span>Место: {ticketData?.eventVenueName}</span>
+      <span>
+        {langs('Event location')}: {ticketData?.eventVenueName}
+      </span>
       <span className={'event-date'}>
-        Дата: {ticketData?.startDate} - {ticketData?.endDate}
+        {langs('Date')}: {ticketData?.startDate} - {ticketData?.endDate}
       </span>
     </StyledTicketHeader>
   );

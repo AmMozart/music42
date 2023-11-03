@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledInput = styled.div`
+const StyledTextArea = styled.div`
   position: relative;
   margin-bottom: 15px;
 
-  & > input {
+  & > textarea {
     resize: none;
 
     width: 100%;
-    height: calc(3.5rem + 2px);
+    height: auto;
     padding: 1.625rem 0.75rem 0.375rem;
 
     font: normal normal 500 18px/1.25 Montserrat, sans-serif;
@@ -47,44 +47,37 @@ const StyledInput = styled.div`
     transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out;
   }
 
-  & > input:focus {
+  & > textarea:focus {
     padding: 1.625rem 0.75rem 0.375rem;
     border-color: var(--main-color);
     outline: 0;
     box-shadow: 0 0 8px var(--second-color);
   }
 
-  & > input:focus ~ label,
-  & > input:not(:placeholder-shown) ~ label {
+  & > textarea:focus ~ label,
+  & > textarea:not(:placeholder-shown) ~ label {
     transform: scale(0.85) translateY(-0.6rem) translateX(0.15rem);
     font-size: 0.9rem;
     opacity: 0.65;
   }
 `;
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   title?: string;
 }
 
-const Input: React.FC<InputProps> = ({
+const TextArea: React.FC<InputProps> = ({
   value,
-  type,
   onChange,
   title,
   ...props
 }) => {
   return (
-    <StyledInput>
-      <input
-        type={type}
-        placeholder=' '
-        onChange={onChange}
-        value={value}
-        {...props}
-      />
+    <StyledTextArea>
+      <textarea placeholder=' ' onChange={onChange} value={value} {...props} />
       <label>{title}</label>
-    </StyledInput>
+    </StyledTextArea>
   );
 };
 
-export default React.memo(Input);
+export default React.memo(TextArea);

@@ -6,6 +6,9 @@ import styled from 'styled-components';
 import TicketDetails from './TicketDetails';
 
 import TicketHeader from './TicketHeader';
+import { verifyErrorMessage } from './ticketVerifySlice';
+
+import { useAppSelector } from '../../app/hooks';
 
 const StyledVerifyError = styled.section`
   display: flex;
@@ -18,9 +21,15 @@ const StyledVerifyError = styled.section`
   & .icon {
     color: #e32f2f;
   }
+
+  & h4 {
+    text-align: center;
+  }
 `;
 
 const VerifyError: React.FC = () => {
+  const message = useAppSelector(verifyErrorMessage);
+
   return (
     <StyledVerifyError>
       <TicketHeader />
@@ -29,7 +38,7 @@ const VerifyError: React.FC = () => {
         className={'icon'}
         size={'5x'}
       />
-      <h4>Билет уже использован</h4>
+      <h4>{message}</h4>
       <TicketDetails />
     </StyledVerifyError>
   );

@@ -1,5 +1,31 @@
 import { getHashID } from '../../utils/getHashID';
 
+const buyMaibTicket: (
+  price: number,
+  eventId: number,
+  userId: number,
+  countTickets: number
+) => Promise<{
+  status: number;
+  url: string;
+} | null> = async (price, eventId, userId, countTickets) => {
+  const url = `https://music42.com/endpoints/get-maib-url?price=${price}&eventId=${eventId}&userId=${userId}&countTickets=${countTickets}&hash_id=${getHashID()}`;
+  const options = {
+    method: 'GET',
+  };
+
+  const response = await fetch(url, options);
+
+  if (response.ok) {
+    const data = (await response.json()) as {
+      status: number;
+      url: string;
+    };
+    return data;
+  }
+  return null;
+};
+
 const buyPayPalTicket: (
   price: number,
   eventId: number,
@@ -94,4 +120,4 @@ const fetchEventData: (
   return null;
 };
 
-export { buyPayPalTicket, buyStripeTicket, fetchEventData };
+export { buyMaibTicket, buyPayPalTicket, buyStripeTicket, fetchEventData };

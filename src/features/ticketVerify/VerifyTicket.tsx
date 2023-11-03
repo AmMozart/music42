@@ -10,6 +10,7 @@ import VerifyError from './VerifyError';
 import VerifySuccess from './VerifySuccess';
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useLangs } from '../../hooks/useLangs';
 
 const StyledVerifyTicket = styled.section`
   display: flex;
@@ -49,6 +50,7 @@ const VerifyTicket: React.FC = () => {
   const dispatch = useAppDispatch();
   const ticketVerifyState = useAppSelector(verifyState);
   const ticketData = useAppSelector(data);
+  const langs = useLangs();
 
   const handleClick = () => {
     if (hashedTicketId) {
@@ -69,9 +71,10 @@ const VerifyTicket: React.FC = () => {
               <TicketDetails />
               <div>
                 <p className={'warning-text'}>
-                  <span>Внимание! </span>
-                  После нажатия кнопки 'Использовать' билет будет считаться
-                  использованным.
+                  <span>{langs('Attention')}! </span>
+                  {langs(
+                    'after_clicking_the__use__button__the_ticket_will_be_considered_used_'
+                  )}
                 </p>
                 <button
                   onClick={handleClick}
@@ -79,8 +82,8 @@ const VerifyTicket: React.FC = () => {
                   disabled={ticketVerifyState === 'loading'}
                 >
                   {ticketVerifyState === 'loading'
-                    ? 'Проверяем...'
-                    : 'Использовать'}
+                    ? langs('checking') + '...'
+                    : langs('Use')}
                 </button>
               </div>
             </>

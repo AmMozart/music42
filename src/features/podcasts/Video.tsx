@@ -8,6 +8,7 @@ import YoutubeContainer from './YoutubeContainer';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { DeleteButton, Modal } from '../../components';
 import { device } from '../../device';
+import { useLangs } from '../../hooks/useLangs';
 import { getYoutubeVideoId } from '../../utils/getYoutubeVideoId';
 import { user } from '../user/userSlice';
 
@@ -51,6 +52,7 @@ const Video: React.FC<VideoProps> = ({ id, url, title }) => {
   const [show, setShow] = useState(false);
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector(user);
+  const langs = useLangs();
 
   const src = `//www.youtube.com/embed/${getYoutubeVideoId(url)}`;
 
@@ -73,9 +75,9 @@ const Video: React.FC<VideoProps> = ({ id, url, title }) => {
       {currentUser.admin > 0 && <DeleteButton onClick={deleteVideo} />}
       {show && (
         <Modal
-          message='Are you sure you want to delete?'
-          rejectText='Cancel'
-          confirmText='Delete'
+          message={langs('Are you sure you want to delete?')}
+          rejectText={langs('Cancel')}
+          confirmText={langs('Delete')}
           onConfirm={handleDelete}
           onReject={handleClose}
         />

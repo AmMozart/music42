@@ -33,8 +33,8 @@ const StyledPodcasts = styled.div`
     align-items: center;
     justify-content: center;
 
-    margin-bottom: 40px;
-    padding-bottom: 30px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
 
     font-size: 24px;
     color: #d2d2d2;

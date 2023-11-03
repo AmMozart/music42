@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-const StyledAddButton = styled.div`
+const StyledAddButton = styled.button`
   cursor: pointer;
   user-select: none;
 
@@ -18,6 +18,7 @@ const StyledAddButton = styled.div`
   color: #dadada;
 
   background: #161616;
+  border: none;
   border-radius: 8px;
   box-shadow: 0 0 15px rgb(0 0 0 / 7%);
 
@@ -29,7 +30,7 @@ const StyledAddButton = styled.div`
   }
 `;
 
-interface AddButtonProps extends React.HTMLAttributes<HTMLDivElement> {
+interface AddButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   title: string;
 }
 

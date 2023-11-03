@@ -1,6 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import {
+  buyMaibTicket,
   buyPayPalTicket,
   buyStripeTicket,
   fetchEventData,
@@ -27,6 +28,22 @@ interface BuyTicketState {
 export const getEventData = createAsyncThunk(
   'ticket/getEventData',
   async (eventId: number) => await fetchEventData(eventId)
+);
+
+export const buyMaib = createAsyncThunk(
+  'ticket/buyMaibTicket',
+  async (args: {
+    price: number;
+    eventId: number;
+    userId: number;
+    countTickets: number;
+  }) =>
+    await buyMaibTicket(
+      args.price,
+      args.eventId,
+      args.userId,
+      args.countTickets
+    )
 );
 
 export const buyPayPal = createAsyncThunk(
@@ -61,7 +78,7 @@ const initialState: BuyTicketState = {
   count: 1,
   userName: '',
   userEmail: '',
-  paymentMethod: 'Stripe',
+  paymentMethod: 'Maib',
   paymentUrl: '',
   price: 0,
   finalPrice: 0,
@@ -109,6 +126,19 @@ const ticketBuySlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(buyMaib.pending, (state) => {
+      state.isLoading = 'loading';
+    });
+    builder.addCase(buyMaib.fulfilled, (state, action) => {
+      state.isLoading = 'success';
+      if (action.payload?.status == 200) {
+        state.paymentUrl = action.payload.url;
+      }
+    });
+    builder.addCase(buyMaib.rejected, (state) => {
+      state.isLoading = 'error';
+    });
+
     builder.addCase(buyPayPal.pending, (state) => {
       state.isLoading = 'loading';
     });

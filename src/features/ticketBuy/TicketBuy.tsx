@@ -12,15 +12,18 @@ import {
   setPaymentMethod,
   setUserEmail,
   setUserName,
+  buyMaib,
 } from './ticketBuySlice';
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { Message } from '../../components';
+import { useLangs } from '../../hooks/useLangs';
 import { configFromDB } from '../config/configSlice';
 import {
   fetchExpressSignup,
   userId,
 } from '../expressSignUp/expressSignUpSlice';
+import { user } from '../user/userSlice';
 
 const StyledTicketBuy = styled.section`
   display: flex;
@@ -42,7 +45,7 @@ const StyledTicketBuy = styled.section`
   & .pay-method {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: left;
   }
 
   & .paypal-method,
@@ -79,6 +82,16 @@ const StyledTicketBuy = styled.section`
   }
 `;
 
+const StyledTermsAndPrivacy = styled.div`
+  padding: 20px 0;
+  & label {
+    cursor: pointer;
+  }
+  & input {
+    margin-right: 8px;
+  }
+`;
+
 const TicketBuy: React.FC = () => {
   const [showMessage, setShowMessage] = useState(false);
   const { eventId } = useParams();
@@ -86,6 +99,15 @@ const TicketBuy: React.FC = () => {
   const buyTicketInfo = useAppSelector(buyInfo);
   const config = useAppSelector(configFromDB);
   const currentUserId = useAppSelector(userId);
+  const currentUser = useAppSelector(user);
+  const langs = useLangs();
+  const [checkedTerms, setCheckedTerms] = useState(false);
+
+  useEffect(() => {
+    if (!(window as any).Stripe) {
+      (window as any).downloadScript('https://js.stripe.com/v3/');
+    }
+  }, []);
 
   useEffect(() => {
     if (eventId) {
@@ -96,6 +118,16 @@ const TicketBuy: React.FC = () => {
 
   useEffect(() => {
     if (currentUserId) {
+      if (buyTicketInfo.paymentMethod === 'Maib') {
+        dispatch(
+          buyMaib({
+            price: buyTicketInfo.finalPrice,
+            eventId: buyTicketInfo.eventId,
+            userId: currentUserId,
+            countTickets: buyTicketInfo.count,
+          })
+        );
+      }
       if (buyTicketInfo.paymentMethod === 'PayPal') {
         dispatch(
           buyPayPal({
@@ -125,6 +157,13 @@ const TicketBuy: React.FC = () => {
       location.href = buyTicketInfo.paymentUrl;
     }
   }, [buyTicketInfo]);
+
+  useEffect(() => {
+    if (currentUser.username && currentUser.username) {
+      dispatch(setUserName(currentUser.username));
+      dispatch(setUserEmail(currentUser.email));
+    }
+  }, [currentUser]);
 
   const changeTicketCount: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const value = +e.currentTarget.value;
@@ -168,11 +207,15 @@ const TicketBuy: React.FC = () => {
     if (e.currentTarget.checked) dispatch(setPaymentMethod('Stripe'));
   };
 
+  const setMaibMethod: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    if (e.currentTarget.checked) dispatch(setPaymentMethod('Maib'));
+  };
+
   return (
     <StyledTicketBuy>
-      <h3>Оформление заказа</h3>
+      <h3>{langs('Placing an order')}</h3>
       {showMessage && (
-        <Message value='Ошибка! Заполните все поля' type='error' />
+        <Message value={langs('Error! Fill in all the fields')} type='error' />
       )}
       <div className='form-group mat_input float'>
         <input
@@ -186,10 +229,14 @@ const TicketBuy: React.FC = () => {
           onBlur={handleBlur}
         />
         <label className='col-md-3 col-form-label' htmlFor='ticket_count'>
-          Колличество Билетов (всего: {buyTicketInfo.availableCount})
+          {langs('Number of Tickets')} {langs('total')}:{' '}
+          {buyTicketInfo.availableCount}
         </label>
       </div>
-      <div className='form-group mat_input float'>
+      <div
+        className='form-group mat_input float'
+        hidden={Boolean(currentUser.id)}
+      >
         <input
           type='text'
           name='username'
@@ -199,10 +246,13 @@ const TicketBuy: React.FC = () => {
           onChange={changeUserName}
         />
         <label className='col-md-3 col-form-label' htmlFor='username'>
-          Имя покупателя
+          {langs('Name')}
         </label>
       </div>
-      <div className='form-group mat_input float'>
+      <div
+        className='form-group mat_input float'
+        hidden={Boolean(currentUser.id)}
+      >
         <input
           type='email'
           name='email'
@@ -212,10 +262,10 @@ const TicketBuy: React.FC = () => {
           value={buyTicketInfo.userEmail}
         />
         <label className='col-md-3 col-form-label' htmlFor='email'>
-          Email покупателя
+          {langs('Email')}
         </label>
       </div>
-      <p>Выберите метод оплаты:</p>
+      <p>{langs('Choose your payment method')}:</p>
       <div className='pay-method'>
         <div className='paypal-method'>
           <input
@@ -262,28 +312,68 @@ const TicketBuy: React.FC = () => {
                 d='M20,8H4V6H20M20,18H4V12H20M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z'
               ></path>
             </svg>
-            Credit Card
+            Credit Card International
+          </label>
+        </div>
+        <div className='maib-method'>
+          <input
+            type={'radio'}
+            id='maibMethod'
+            name={'payMethod'}
+            value='Maib'
+            onChange={setMaibMethod}
+            checked={buyTicketInfo.paymentMethod === 'Maib'}
+          />
+          <label htmlFor='maibMethod'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              width='24'
+              height='24'
+              viewBox='0 0 24 24'
+            >
+              <path
+                fill='#6BBEA1'
+                d='M20,8H4V6H20M20,18H4V12H20M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z'
+              ></path>
+            </svg>
+            Credit Card Moldova
           </label>
         </div>
       </div>
+      <StyledTermsAndPrivacy>
+        <label>
+          <input
+            type='checkbox'
+            name='termsAndPrivacy'
+            onChange={(e) => setCheckedTerms(e.currentTarget.checked)}
+          />
+          {langs('_i_agree_to_the_')}{' '}
+          <a href='https://music42.com/terms/terms'> {langs('terms')} </a>{' '}
+          {langs('and')}{' '}
+          <a href='https://music42.com/terms/privacy'>
+            {langs('privacy policy')}
+          </a>
+        </label>
+      </StyledTermsAndPrivacy>
       <div className={'total-container'}>
-        {buyTicketInfo.paymentMethod === 'PayPal' && (
+        {buyTicketInfo.commission > 0 && (
           <span className={'commission'}>
-            Комиссия : {buyTicketInfo.commission} {config?.currency_symbol}
+            {langs('Commission')} : {buyTicketInfo.commission}{' '}
+            {config?.currency_symbol}
           </span>
         )}
         <span className={'total-sum'}>
-          Итого: {buyTicketInfo.finalPrice} {config?.currency_symbol}
+          {langs('total')}: {buyTicketInfo.finalPrice} {config?.currency_symbol}
         </span>
       </div>
       <button
         className='btn btn-primary btn-mat'
         onClick={buyTicket}
-        disabled={buyTicketInfo.isLoading !== 'idle'}
+        disabled={buyTicketInfo.isLoading !== 'idle' || !checkedTerms}
       >
         {buyTicketInfo.isLoading !== 'idle'
-          ? 'Пожалуйста Подождите...'
-          : 'Оформить Заказ'}
+          ? langs('Please wait')
+          : langs('Placing an order')}
       </button>
     </StyledTicketBuy>
   );

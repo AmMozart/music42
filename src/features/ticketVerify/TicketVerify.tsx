@@ -9,6 +9,7 @@ import VerifyTicket from './VerifyTicket';
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import Loader from '../../components/Loader/Loader';
+import { useLangs } from '../../hooks/useLangs';
 
 const StyledTicketVerify = styled.section`
   display: flex;
@@ -28,6 +29,7 @@ const TicketVerify: React.FC = () => {
   const { hashedTicketId } = useParams();
   const dispatch = useAppDispatch();
   const ticketLoadingDataState = useAppSelector(loadingDataState);
+  const langs = useLangs();
 
   useEffect(() => {
     if (hashedTicketId) {
@@ -40,7 +42,7 @@ const TicketVerify: React.FC = () => {
   return (
     <StyledTicketVerify>
       {ticketLoadingDataState === 'loading' && (
-        <Loader title={'Идет Загрузка...'} />
+        <Loader title={langs('Please wait..')} />
       )}
       {ticketLoadingDataState === 'success' && <VerifyTicket />}
       {ticketLoadingDataState === 'error' && <TicketNotFound />}
