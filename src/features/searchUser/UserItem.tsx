@@ -2,6 +2,9 @@ import React from 'react';
 
 import styled from 'styled-components';
 
+import { useAppSelector } from '../../app/hooks';
+import { user } from '../user/userSlice';
+
 const StyledUserItem = styled.li<{ checked: boolean }>`
   cursor: pointer;
 
@@ -23,6 +26,9 @@ interface UserItemProps {
 }
 
 const UserItem: React.FC<UserItemProps> = ({ username, checked }) => {
+  const currentUser = useAppSelector(user);
+
+  if (currentUser.username === username) return null;
   return <StyledUserItem checked={checked}>{username}</StyledUserItem>;
 };
 
