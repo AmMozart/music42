@@ -56,10 +56,12 @@ export const getFilesByFolderId = createAsyncThunk(
 
 interface FileExplorerState {
   explorerData: ExplorerData;
+  viewFileId: number | null;
 }
 
 const initialState: FileExplorerState = {
   explorerData: { folderId: 0, items: [] },
+  viewFileId: null,
 };
 
 const fileExplorerSlice = createSlice({
@@ -68,6 +70,12 @@ const fileExplorerSlice = createSlice({
   reducers: {
     changeFolderById: (state, action: PayloadAction<number>) => {
       state.explorerData.folderId = action.payload;
+    },
+    openFileById: (state, action: PayloadAction<number>) => {
+      state.viewFileId = action.payload;
+    },
+    closeFile: (state) => {
+      state.viewFileId = null;
     },
   },
   extraReducers: (builder) => {

@@ -17,3 +17,4 @@ export { default as FileInput } from './FileInput/FileInput';
 export { default as DateTimeTablo } from './DateTimeTablo/DateTimeTablo';
 export { default as Countdown } from './Countdown/Countdown';
 export { default as Equalizer } from './Equalizer/Equalizer';
+export { default as FileViewer } from './FileViewer/FileViewer';
