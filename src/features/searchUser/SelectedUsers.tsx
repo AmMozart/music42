@@ -4,8 +4,9 @@ import styled from 'styled-components';
 
 import { searchUserAction } from './searchUser.slice';
 
-import { useAppDispatch } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { UserData } from '../../app/types';
+import { user } from '../user/userSlice';
 
 const StyledSelectedUsers = styled.div`
   display: flex;
@@ -58,11 +59,13 @@ const SelectedUsers: React.FC<SelectedUsersProps> = ({ users }) => {
 
 const RemoveUser: React.FC<{ user: UserData }> = (props) => {
   const dispatch = useAppDispatch();
+  const currentUser = useAppSelector(user);
 
   const remove = () => {
     dispatch(searchUserAction.removeUser(props.user));
   };
 
+  if (currentUser.id === props.user.id) return null;
   return (
     <svg
       onClick={remove}
