@@ -78,9 +78,10 @@ const StyledButtonContainer = styled.div`
 
 interface RecorderProps {
   stream: MediaStream;
+  onClickGoToRecords: () => void;
 }
 
-const Recorder: React.FC<RecorderProps> = ({ stream }) => {
+const Recorder: React.FC<RecorderProps> = ({ stream, onClickGoToRecords }) => {
   const dispatch = useAppDispatch();
   const langs = useLangs();
   const [showCountdown, setShowCountdown] = useState(false);
@@ -253,7 +254,7 @@ const Recorder: React.FC<RecorderProps> = ({ stream }) => {
             {langs('rec')}
           </StyledButton>
         )}
-        <RecordsLink />
+        <RecordsLink onClick={onClickGoToRecords} />
         <People />
       </StyledButtons>
       <RecordTimer time={time} ref={timerRef} />

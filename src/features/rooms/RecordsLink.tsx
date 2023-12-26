@@ -2,10 +2,8 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { useAppSelector } from '../../app/hooks';
 import { device } from '../../device';
 import { useLangs } from '../../hooks/useLangs';
-import { user } from '../user/userSlice';
 
 const StyledRecordsLink = styled.div`
   cursor: pointer;
@@ -44,12 +42,15 @@ const StyledRecordsLink = styled.div`
   }
 `;
 
-const RecordsLink = () => {
-  const currentUser = useAppSelector(user);
+interface RecordsLinkProps {
+  onClick: () => void;
+}
+
+const RecordsLink: React.FC<RecordsLinkProps> = ({ onClick }) => {
   const langs = useLangs();
 
   return (
-    <StyledRecordsLink data-load={`/${currentUser.username}/records`}>
+    <StyledRecordsLink onClick={onClick}>
       <svg
         width='24px'
         height='24px'

@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 import Record from './Record';
 
-import { useAppDispatch } from '../../app/hooks';
 import { RecordData } from '../../app/types';
 import { ItemsNoFound } from '../../components';
 import { useLangs } from '../../hooks/useLangs';

@@ -6,6 +6,7 @@ import styled, { css } from 'styled-components';
 import Controls from './Controls';
 import Recorder from './Recorder';
 
+import Records from './Records';
 import {
   getRoomById,
   leaveRoom,
@@ -116,6 +117,7 @@ const Room: React.FC = () => {
     stream,
   } = useMedia();
   const { error, status, latency, peers } = useWebRTC(+id);
+  const recordsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     startLocalVideo().then(() => {
@@ -142,6 +144,10 @@ const Room: React.FC = () => {
       remoteVideoRef.current.srcObject = peers[0]?.stream || null;
     }
   }, [peers]);
+
+  const goToRecords = () => {
+    recordsRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <StyledRoom>
@@ -189,8 +195,11 @@ const Room: React.FC = () => {
       </StyledVideoContainer>
       {mediaError && <div className='errorConnection'>{mediaError}</div>}
       {error && <div className='errorConnection'>{error}</div>}
-      {stream && <Recorder stream={stream} />}
+      {stream && <Recorder stream={stream} onClickGoToRecords={goToRecords} />}
       <FileExplorer roomId={+id} />
+      <section ref={recordsRef} style={{ width: '100%' }}>
+        <Records roomId={+id} />
+      </section>
     </StyledRoom>
   );
 };
