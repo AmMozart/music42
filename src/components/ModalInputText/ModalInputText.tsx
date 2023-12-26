@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledModalInput = styled.div`
+const StyledModalInputText = styled.div`
   position: relative;
 
   width: 100%;
@@ -57,20 +57,20 @@ const StyledModalInput = styled.div`
   }
 `;
 
-interface ModalInputProps extends React.HTMLAttributes<HTMLElement> {
+interface ModalInputTextProps extends React.HTMLAttributes<HTMLElement> {
   inputTitle: string;
   buttonTitle: string;
   value: string;
 }
 
-const ModalInput: React.FC<ModalInputProps> = ({
+const ModalInputText: React.FC<ModalInputTextProps> = ({
   inputTitle,
   buttonTitle,
   value,
   ...props
 }) => {
   return (
-    <StyledModalInput>
+    <StyledModalInputText>
       <div className='input'>
         <input
           type='url'
@@ -83,29 +83,12 @@ const ModalInput: React.FC<ModalInputProps> = ({
       </div>
 
       <div className='last-sett-btn d-flex align-items-center justify-content-between import_ado_footer'>
-        <div>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            width='48'
-            height='48'
-            fill='none'
-            viewBox='0 0 48 48'
-          >
-            <rect width='48' height='48' fill='#FF0000' rx='24'></rect>
-            <path
-              fill='#fff'
-              fill-rule='evenodd'
-              d='M35.7379 14.1401C37.0229 14.486 38.0361 15.4992 38.3821 16.7842C39.0246 19.1318 38.9999 24.0247 38.9999 24.0247C38.9999 24.0247 38.9999 28.8929 38.3821 31.2405C38.0361 32.5255 37.0229 33.5387 35.7379 33.8846C33.3903 34.5024 23.9999 34.5024 23.9999 34.5024C23.9999 34.5024 14.6342 34.5024 12.2619 33.8599C10.9769 33.5139 9.96375 32.5008 9.61779 31.2158C9 28.8929 9 24 9 24C9 24 9 19.1318 9.61779 16.7842C9.96375 15.4992 11.0016 14.4613 12.2619 14.1153C14.6095 13.4976 23.9999 13.4976 23.9999 13.4976C23.9999 13.4976 33.3903 13.4976 35.7379 14.1401ZM28.8187 24L21.0098 28.4975V19.5025L28.8187 24Z'
-              clip-rule='evenodd'
-            ></path>
-          </svg>
-        </div>
         <button className='btn btn-primary btn-mat' onClick={props.onClick}>
           {buttonTitle}
         </button>
       </div>
-    </StyledModalInput>
+    </StyledModalInputText>
   );
 };
 
-export default ModalInput;
+export default ModalInputText;

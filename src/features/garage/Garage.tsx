@@ -15,9 +15,10 @@ const StyledGarage = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
 
   width: 100%;
+  min-height: 90vh;
 
   & > .title {
     display: flex;
@@ -41,9 +42,9 @@ const StyledGarageFilter = styled.div`
   justify-content: space-evenly;
 
   width: 100%;
+  max-width: 400px;
   height: 40px;
   margin-bottom: 10px;
-  max-width: 400px;
 
   & > label {
     cursor: pointer;

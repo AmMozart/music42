@@ -36,7 +36,7 @@ const StyledButton = styled.button`
 `;
 
 const StyledHiddenFileInput = styled.input`
-  position: absolute;
+  /* position: absolute; */
   visibility: hidden;
   opacity: 0;
 `;

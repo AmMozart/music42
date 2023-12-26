@@ -84,9 +84,11 @@ const StyledTicketBuy = styled.section`
 
 const StyledTermsAndPrivacy = styled.div`
   padding: 20px 0;
+
   & label {
     cursor: pointer;
   }
+
   & input {
     margin-right: 8px;
   }

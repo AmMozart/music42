@@ -16,6 +16,11 @@ export interface VideoData {
   url: string;
   title: string;
 }
+export interface RecordData {
+  id: number;
+  url: string;
+  title: string;
+}
 export type UserData = {
   id: number;
   username: string;
@@ -63,4 +68,38 @@ export enum Instruments {
 export enum SearchType {
   AvailableToPlay = 'Available to play',
   LookingFor = 'Looking for',
+}
+
+export interface RoomItemData {
+  id: number;
+  userId: number;
+  title: string;
+  userIds: number[];
+  state: string;
+  invitedUserIds: number[];
+}
+
+export interface PeerConnectionData {
+  senderUserId: number | null;
+  senderDescription: any;
+  senderIceCandidat: any;
+  receiverUserId: any;
+  receiverDescription: any;
+  receiverIceCandidat: any;
+  state: string;
+}
+
+export interface ExplorerItemData {
+  id: number;
+  name: string;
+  userId: number;
+  roomId: number;
+  folderId: number;
+  type: 'folder' | 'file';
+  path: string;
+}
+
+export interface ExplorerData {
+  folderId: number;
+  items: ExplorerItemData[];
 }

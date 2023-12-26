@@ -6,11 +6,12 @@ import { useParams } from 'react-router-dom';
 
 import { store } from '../app/store';
 import ProfilePictures from '../features/profilePictures/ProfilePictures';
+import ProfileRecords from '../features/profileRecords/ProfileRecords';
 import ProfileVideo from '../features/profileVideo/ProfileVideo';
 
 const Profile: React.FC = () => {
   const { option } = useParams();
-  const pages = ['pictures', 'video'];
+  const pages = ['pictures', 'video', 'records'];
 
   useEffect(() => {
     const containerProfile = document.getElementById(
@@ -27,6 +28,7 @@ const Profile: React.FC = () => {
           <Provider store={store}>
             {option == 'pictures' && <ProfilePictures />}
             {option == 'video' && <ProfileVideo />}
+            {option == 'records' && <ProfileRecords />}
           </Provider>
         </React.StrictMode>
       );

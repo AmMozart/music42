@@ -17,7 +17,7 @@ const StyledMessage = styled.div<{ type: TypeMessage }>`
       case 'success':
         return css`
           color: #1eaf1e;
-          background: #00ff0026;
+          background: #00ff0015;
           border-color: #1eaf1e;
         `;
       case 'error':

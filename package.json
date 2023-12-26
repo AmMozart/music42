@@ -15,6 +15,7 @@
     "@types/node": "^16.18.31",
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
+    "@types/react-transition-group": "^4.4.10",
     "@types/styled-components": "^5.1.26",
     "bootstrap": "^5.3.1",
     "flatpickr": "^4.6.13",
@@ -28,8 +29,10 @@
     "react-router-dom": "^6.12.1",
     "react-scripts": "5.0.1",
     "react-select": "^5.7.5",
+    "react-transition-group": "^4.4.5",
     "styled-components": "^5.3.10",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "webrtc-adapter": "^8.2.3"
   },
   "scripts": {
     "start": "react-scripts start",

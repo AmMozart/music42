@@ -1,11 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import {
-  FetchData,
-  GarageJoinData,
-  SearchType,
-  UserData,
-} from './../../app/types';
+import { FetchData, GarageJoinData, SearchType } from './../../app/types';
 
 import {
   confirm,
