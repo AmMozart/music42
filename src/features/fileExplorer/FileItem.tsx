@@ -90,6 +90,9 @@ const FileItem: React.FC<FileListProps> = ({ file, type }) => {
     if (type === 'folder') {
       dispatch(fileExplorerActions.changeFolderById(file.id));
     }
+    if (type === 'file') {
+      dispatch(fileExplorerActions.openFileById(file.id));
+    }
   };
 
   const stopHoisting = (event: React.MouseEvent<HTMLDivElement>) => {
