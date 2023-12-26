@@ -7,6 +7,8 @@ import EditGarage from '../features/garage/EditGarage';
 import Garage from '../features/garage/Garage';
 import ViewGarage from '../features/garage/ViewGarage';
 import Podcasts from '../features/podcasts/Podcasts';
+import CreateRoom from '../features/rooms/CreateRoom';
+import Room from '../features/rooms/Room';
 import Rooms from '../features/rooms/Rooms';
 import BuyTicket from '../features/ticketBuy/TicketBuy';
 import TicketDownload from '../features/ticketDownload/TicketDownload';
@@ -27,6 +29,8 @@ const routes = [
   { path: 'ticket/download', element: <TicketDownload /> },
   { path: ':username/:option', element: <Profile /> },
   { path: 'rooms', element: <Rooms /> },
+  { path: 'rooms/:id', element: <Room /> },
+  { path: 'rooms/create', element: <CreateRoom /> },
 ];
 
 export { routes };

@@ -11,7 +11,7 @@ const StyledLoadMore = styled.div`
   align-items: center;
   justify-content: space-evenly;
 
-  width: 220px;
+  max-width: 270px;
   height: auto;
   margin: 20px auto;
 

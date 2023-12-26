@@ -24,7 +24,7 @@ input::-webkit-inner-spin-button {
   appearance: none;
 }
 
-#container_content_root {
+#container-content-root {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,27 +40,27 @@ input::-webkit-inner-spin-button {
 }
 
 @media (width >= 1190px) {
-  body.side_open #container_content_root {
+  body.side_open #container-content-root {
     width: calc(100% - 280px);
     margin-left: 280px;
   }
 }
 
 @media (width >= 1190px) {
-  #container_content_root {
+  #container-content-root {
     margin-left: 70px;
   }
 }
 
 @media ${device.laptop} {
-  #container_content_root {
+  #container-content-root {
     width: 100%;
     margin-left: 0;
   }
 }`;
 
 const container = document.getElementById(
-  'container_content_root'
+  'container-content-root'
 ) as HTMLElement;
 const root = createRoot(container);
 

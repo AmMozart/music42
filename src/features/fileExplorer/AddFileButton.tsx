@@ -9,10 +9,9 @@ const StyledAddButton = styled.button<{ disabled: boolean }>`
   display: flex;
   gap: 10px;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
 
-  margin: 20px auto;
-  padding: 0 35px;
+  padding: 0 20px;
 
   font: normal normal 500 18px/50px Montserrat, sans-serif;
   color: #dadada;
@@ -36,7 +35,8 @@ const StyledAddButton = styled.button<{ disabled: boolean }>`
   }
 `;
 
-interface AddFileButtonProps extends React.HTMLAttributes<HTMLInputElement> {
+interface AddFileButtonProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   title: string;
   disabled?: boolean;
 }
@@ -45,6 +45,7 @@ const AddFileButton: React.FC<AddFileButtonProps> = ({
   title,
   disabled = false,
   onChange,
+  ...props
 }) => {
   const refInputFile = useRef<HTMLInputElement>(null);
 
@@ -75,11 +76,11 @@ const AddFileButton: React.FC<AddFileButtonProps> = ({
       <input
         ref={refInputFile}
         type='file'
-        multiple
+        // multiple
         className='hidden'
         onChange={onChange}
         disabled={disabled}
-        accept='image/x-png, image/jpeg'
+        {...props}
       />
     </StyledAddButton>
   );

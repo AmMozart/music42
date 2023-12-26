@@ -46,7 +46,8 @@ const GridPictures: React.FC<GridPicturesProps> = ({ pictures }) => {
             key={pictureData.id}
             url={`https://music42.com/${pictureData.url.replace(
               /(.*)(\.)([a-zA-Z]+)$/,
-              (...match) => `${match[1]}_small.${match[3]}`
+              (...match) => `${match[1]}.${match[3]}/220`
+              // (...match) => `${match[1]}_small.${match[3]}`
             )}`}
             id={pictureData.id}
             index={i}

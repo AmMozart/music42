@@ -36,25 +36,27 @@ const StyledViewGarage = styled.section`
 `;
 
 const StyledImage = styled.div`
+  position: relative;
+
+  overflow: hidden;
+  display: block;
+
+  height: 0;
   min-height: 100%;
   max-height: 100%;
-  position: relative;
-  display: block;
-  height: 0;
   padding: 0;
   padding-bottom: 40%;
-  overflow: hidden;
 
   & img {
+    position: absolute;
+    inset: 50% 0 0 50%;
+    transform: translate(-50%, -50%);
+
+    display: block;
+
     width: 100%;
     height: 100%;
-    position: absolute;
-    top: 50%;
-    right: 0;
-    bottom: 0;
-    left: 50%;
-    display: block;
-    transform: translate(-50%, -50%);
+
     object-fit: contain;
   }
 
@@ -69,10 +71,11 @@ const StyledImage = styled.div`
 
 const StyledContainer = styled.div`
   width: 100%;
-  padding: 15px;
+  max-width: 540px;
   margin-right: auto;
   margin-left: auto;
-  max-width: 540px;
+  padding: 15px;
+
   background: #161616;
   border-radius: 8px;
 

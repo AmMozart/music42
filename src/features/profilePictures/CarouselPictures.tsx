@@ -68,7 +68,7 @@ const CarouselPictures = () => {
       <Carousel infiniteLoop selectedItem={item}>
         {currentPictures.map((picture) => (
           <div key={picture.id}>
-            <img src={`https://music42.com/${picture.url}`} />
+            <img src={`https://music42.com/${picture.url}/800`} />
           </div>
         ))}
       </Carousel>
