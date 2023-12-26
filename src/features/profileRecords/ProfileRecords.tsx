@@ -13,11 +13,9 @@ import {
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { LoadMore } from '../../components';
 import { useLangs } from '../../hooks/useLangs';
-import { user } from '../user/userSlice';
 
 const ProfileRecords: React.FC = () => {
   const dispatch = useAppDispatch();
-  const currentUser = useAppSelector(user);
   const userRecords = useAppSelector(records);
   const loadMoreRecordsFetchState = useAppSelector(loadMoreFetchState);
   const langs = useLangs();

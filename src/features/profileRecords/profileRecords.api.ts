@@ -8,16 +8,12 @@ const fetchRecords = async (username: string) => {
   return (await response.json()) as FetchData<RecordData[]>;
 };
 
-// const addVideoLink = async (link: string) => {
-//   const url = `https://music42.com/endpoints/user/add-video-link?&hash_id=${getHashID()}`;
-//   const fd = new FormData();
-//   fd.append('link', link);
-//   fd.append('type', 'user_video');
+const getRecordsByRoomId = async (id: number) => {
+  const url = `https://music42.com/endpoints/user/get-records-by-room-id?id=${id}&hash_id=${getHashID()}`;
+  const response = await fetch(url);
 
-//   const response = await fetch(url, { method: 'POST', body: fd });
-
-//   return (await response.json()) as FetchData<VideoData>;
-// };
+  return (await response.json()) as FetchData<RecordData[]>;
+};
 
 const deleteRecord = async (id: number) => {
   const url = `https://music42.com/endpoints/user/delete-record?id=${id}&hash_id=${getHashID()}`;
@@ -34,3 +30,9 @@ const loadMore = async (minId: number, username: string) => {
 };
 
 export { fetchRecords, loadMore, deleteRecord };
+export const recordsAPI = {
+  fetchRecords,
+  loadMore,
+  deleteRecord,
+  getRecordsByRoomId,
+};

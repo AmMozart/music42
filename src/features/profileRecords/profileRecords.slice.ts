@@ -1,6 +1,11 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { deleteRecord, fetchRecords, loadMore } from './profileRecords.api';
+import {
+  deleteRecord,
+  fetchRecords,
+  loadMore,
+  recordsAPI,
+} from './profileRecords.api';
 
 import { RootState } from '../../app/store';
 
@@ -10,6 +15,13 @@ export const getRecords = createAsyncThunk(
   'profileRecords/getRecords',
   async (username: string) => {
     return await fetchRecords(username);
+  }
+);
+
+export const getRecordsByRoomId = createAsyncThunk(
+  'profileRecords/getRecordsByRoomId',
+  async (id: number) => {
+    return await recordsAPI.getRecordsByRoomId(id);
   }
 );
 
@@ -61,6 +73,12 @@ const profileRecordsSlice = createSlice({
         state.records = action.payload.data;
       }
       // state.fetchState = 'success';
+    });
+
+    builder.addCase(getRecordsByRoomId.fulfilled, (state, action) => {
+      if (Array.isArray(action.payload.data)) {
+        state.records = action.payload.data;
+      }
     });
 
     builder.addCase(loadMoreRecords.pending, (state) => {
