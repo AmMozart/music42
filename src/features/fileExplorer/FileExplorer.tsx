@@ -25,10 +25,11 @@ import { useLangs } from '../../hooks/useLangs';
 
 const StyledFileExplorer = styled.section`
   position: relative;
+
   width: 100%;
   max-width: 800px;
-  padding: 10px;
   margin-bottom: 100px;
+  padding: 10px;
 
   background: #29292945;
   border-radius: 10px;
@@ -52,33 +53,41 @@ const StyledButtons = styled.div`
 `;
 
 const StyledFileViewer = styled.section`
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+
   width: 100%;
   height: 600px;
-  position: absolute;
-  top: 0px;
-  left: 0;
-  z-index: 1;
+
   background: #0d0d0d;
 `;
 
 const StyledBack = styled.div`
   cursor: pointer;
+  user-select: none;
+
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   align-items: center;
+  justify-content: flex-end;
+
   width: 60px;
   height: 64px;
-  border-radius: 50%;
-  background: #151515;
-  transition: background 0.3s linear;
-  font-size: 0.5em;
-  user-select: none;
-  padding: 5px;
   margin: 5px;
+  padding: 5px;
+
+  font-size: 0.5em;
+
+  background: #151515;
+  border-radius: 50%;
+
+  transition: background 0.3s linear;
 
   &:hover {
     background: #22313f;
@@ -100,6 +109,7 @@ const FileExplorer: React.FC<FileExplorerProps> = ({ roomId }) => {
   const [showModal, setShowModal] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
   const [path, setPath] = useState('');
+  const [flag, setFlag] = useState(false);
 
   useEffect(() => {
     dispatch(getFilesByRoomId(roomId));
@@ -107,11 +117,16 @@ const FileExplorer: React.FC<FileExplorerProps> = ({ roomId }) => {
 
   useEffect(() => {
     let timerId: ReturnType<typeof setInterval>;
-    if (explorer.folderId) {
-      dispatch(getFilesByFolderId(explorer.folderId));
-      timerId = setInterval(() => {
+
+    if (flag) {
+      if (explorer.folderId) {
         dispatch(getFilesByFolderId(explorer.folderId));
-      }, UPDATE_FOLDER_MS);
+        timerId = setInterval(() => {
+          dispatch(getFilesByFolderId(explorer.folderId));
+        }, UPDATE_FOLDER_MS);
+      }
+    } else {
+      setFlag(true);
     }
 
     return () => {

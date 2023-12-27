@@ -54,6 +54,7 @@ const StyledVideo = styled.div<{
   self: boolean;
 }>`
   position: relative;
+  z-index: ${({ self }) => (self ? 3 : 2)};
 
   display: ${({ show = true }) => (show ? 'flex' : 'none')};
   justify-content: center;
@@ -67,8 +68,6 @@ const StyledVideo = styled.div<{
           width: calc(50% - 4px);
         `};
 
-  z-index: ${({ self }) => (self ? 3 : 2)};
-
   max-height: 74vh;
 
   & video {
@@ -76,13 +75,13 @@ const StyledVideo = styled.div<{
     border-radius: 10px;
   }
 
-  & .statusConnection {
+  & .status-connection {
     position: absolute;
     top: 0;
     right: 5px;
   }
 
-  & .errorConnection {
+  & .error-connection {
     color: #9c1d1d;
   }
 
@@ -91,7 +90,7 @@ const StyledVideo = styled.div<{
 
     ${({ isOnePeople = false, self }) =>
       isOnePeople
-        ? css``
+        ? null
         : self
         ? css`
             position: absolute;
@@ -158,7 +157,7 @@ const Room: React.FC = () => {
         </StyledVideo>
 
         <StyledVideo show={!isOnePeople()} self={false}>
-          <div className='statusConnection' title={status}>
+          <div className='status-connection' title={status}>
             <span>{latency} ms </span>
             <svg
               width='10px'
@@ -193,8 +192,8 @@ const Room: React.FC = () => {
           remoteVideoRefs={[remoteVideoRef]}
         />
       </StyledVideoContainer>
-      {mediaError && <div className='errorConnection'>{mediaError}</div>}
-      {error && <div className='errorConnection'>{error}</div>}
+      {mediaError && <div className='error-connection'>{mediaError}</div>}
+      {error && <div className='error-connection'>{error}</div>}
       {stream && <Recorder stream={stream} onClickGoToRecords={goToRecords} />}
       <FileExplorer roomId={+id} />
       <section ref={recordsRef} style={{ width: '100%' }}>

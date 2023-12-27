@@ -79,8 +79,8 @@ const fileExplorerSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(upload.fulfilled, (state, action) => {
-      // console.log(action.payload);
+    builder.addCase(upload.fulfilled, () => {
+      // TODO
     });
 
     builder.addCase(getFilesByRoomId.fulfilled, (state, action) => {
