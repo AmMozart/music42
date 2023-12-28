@@ -7,6 +7,7 @@ import {
   fetchFilesByFolderId,
   uploadFile,
   uploadFolder,
+  explorerAPI,
 } from './fileExplorer.api';
 
 import { RootState } from '../../app/store';
@@ -37,6 +38,13 @@ export const deleteFile = createAsyncThunk(
   'fileExplorer/deleteFile',
   async (fileId: number) => {
     return await deleteFileById(fileId);
+  }
+);
+
+export const editItemById = createAsyncThunk(
+  'fileExplorer/editItemById',
+  async (args: { id: number; name: string }) => {
+    return await explorerAPI.editItemById(args.id, args.name);
   }
 );
 
@@ -90,16 +98,6 @@ const fileExplorerSlice = createSlice({
     builder.addCase(getFilesByFolderId.fulfilled, (state, action) => {
       state.explorerData = action.payload.data;
     });
-
-    // builder.addCase(createFolder.fulfilled, (state, action) => {
-    //   state.explorerData.folders.push(action.payload.data);
-    // });
-
-    // builder.addCase(deleteFolder.fulfilled, (state, action) => {
-    //   state.explorerData.folders = state.explorerData.folders.filter(
-    //     (folder) => folder.id !== action.payload.data
-    //   );
-    // });
   },
 });
 

@@ -68,4 +68,4 @@ const Navigation: React.FC<NavigationProps> = ({ roomId }) => {
   );
 };
 
-export default Navigation;
+export default React.memo(Navigation);

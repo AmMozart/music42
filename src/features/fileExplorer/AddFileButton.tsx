@@ -86,4 +86,4 @@ const AddFileButton: React.FC<AddFileButtonProps> = ({
   );
 };
 
-export default AddFileButton;
+export default React.memo(AddFileButton);

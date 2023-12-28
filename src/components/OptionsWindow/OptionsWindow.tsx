@@ -5,7 +5,7 @@ const StyledOptionsWindow = styled.div`
   cursor: pointer;
 
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   top: 5px;
   right: 5px;
 
@@ -13,7 +13,7 @@ const StyledOptionsWindow = styled.div`
 
   color: #d2d2d2;
 
-  background-color: #0000008f;
+  background-color: #0b0b0b;
   border-radius: 10px;
 
   fill: #d2d2d2;
