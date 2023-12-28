@@ -32,4 +32,4 @@ const FileList: React.FC<FileListProps> = ({ explorerData }) => {
   );
 };
 
-export default FileList;
+export default React.memo(FileList);

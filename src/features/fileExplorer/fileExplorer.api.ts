@@ -1,4 +1,4 @@
-import { ExplorerData, FetchData } from '../../app/types';
+import { ExplorerData, ExplorerItemData, FetchData } from '../../app/types';
 import { getHashID } from '../../utils/getHashID';
 
 const fetchFilesByRoomId = async (id: number) => {
@@ -53,6 +53,18 @@ const deleteFileById = async (id: number) => {
   return (await response.json()) as FetchData;
 };
 
+const editItemById = async (id: number, name: string) => {
+  const url = `https://music42.com/endpoints/file-explorer/file/${id}?hash_id=${getHashID()}`;
+
+  const options = {
+    method: 'PUT',
+    body: `name=${name}`,
+  };
+  const response = await fetch(url, options);
+
+  return (await response.json()) as FetchData<ExplorerItemData>;
+};
+
 export {
   uploadFile,
   fetchFilesByRoomId,
@@ -60,4 +72,15 @@ export {
   deleteFolderById,
   deleteFileById,
   fetchFilesByFolderId,
+  editItemById,
+};
+
+export const explorerAPI = {
+  uploadFile,
+  fetchFilesByRoomId,
+  uploadFolder,
+  deleteFolderById,
+  deleteFileById,
+  fetchFilesByFolderId,
+  editItemById,
 };

@@ -56,4 +56,4 @@ const AddFolderButton: React.FC<AddButtonProps> = ({ title, ...props }) => {
   );
 };
 
-export default AddFolderButton;
+export default React.memo(AddFolderButton);

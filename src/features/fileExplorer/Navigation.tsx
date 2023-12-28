@@ -8,20 +8,24 @@ import { useAppDispatch } from '../../app/hooks';
 import { useLangs } from '../../hooks/useLangs';
 
 const StyledNavigation = styled.section`
-  font-size: 0.5em;
   user-select: none;
+  font-size: 0.5em;
 `;
 
 const StyledBack = styled.div`
   cursor: pointer;
+
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+
   width: 60px;
   height: 60px;
-  border-radius: 50%;
+
   background: #151515;
+  border-radius: 50%;
+
   transition: background 0.3s linear;
 
   &:hover {
@@ -34,7 +38,7 @@ interface NavigationProps {
   currentFolderId: number;
 }
 
-const Navigation: React.FC<NavigationProps> = ({ roomId, currentFolderId }) => {
+const Navigation: React.FC<NavigationProps> = ({ roomId }) => {
   const dispatch = useAppDispatch();
   const langs = useLangs();
 
@@ -64,4 +68,4 @@ const Navigation: React.FC<NavigationProps> = ({ roomId, currentFolderId }) => {
   );
 };
 
-export default Navigation;
+export default React.memo(Navigation);

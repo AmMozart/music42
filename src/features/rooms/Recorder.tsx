@@ -72,8 +72,8 @@ const StyledModalContent = styled.section`
 
 const StyledButtonContainer = styled.div`
   display: flex;
-  width: 100%;
   justify-content: space-around;
+  width: 100%;
 `;
 
 interface RecorderProps {
