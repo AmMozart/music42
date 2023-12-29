@@ -89,14 +89,17 @@ export interface PeerConnectionData {
   state: string;
 }
 
+export type ExplorerItemType = 'folder' | 'file' | 'video';
+
 export interface ExplorerItemData {
   id: number;
   name: string;
   userId: number;
   roomId: number;
   folderId: number;
-  type: 'folder' | 'file';
+  type: ExplorerItemType;
   path: string;
+  url: string;
 }
 
 export interface ExplorerData {

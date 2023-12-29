@@ -1,8 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import {
-  deleteFileById,
-  deleteFolderById,
   fetchFilesByRoomId,
   fetchFilesByFolderId,
   uploadFile,
@@ -27,17 +25,10 @@ export const createFolder = createAsyncThunk(
   }
 );
 
-export const deleteFolder = createAsyncThunk(
-  'fileExplorer/deleteFolder',
-  async (folderId: number) => {
-    return await deleteFolderById(folderId);
-  }
-);
-
-export const deleteFile = createAsyncThunk(
-  'fileExplorer/deleteFile',
-  async (fileId: number) => {
-    return await deleteFileById(fileId);
+export const deleteItem = createAsyncThunk(
+  'fileExplorer/deleteItem',
+  async (id: number) => {
+    return await explorerAPI.deleteItemById(id);
   }
 );
 
@@ -83,6 +74,10 @@ const fileExplorerSlice = createSlice({
       state.viewFileId = action.payload;
     },
     closeFile: (state) => {
+      state.viewFileId = null;
+    },
+    clear: (state) => {
+      state.explorerData = { folderId: 0, items: [] };
       state.viewFileId = null;
     },
   },

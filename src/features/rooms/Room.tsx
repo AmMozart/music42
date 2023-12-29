@@ -6,7 +6,7 @@ import styled, { css } from 'styled-components';
 import Controls from './Controls';
 import Recorder from './Recorder';
 
-import Records from './Records';
+// import Records from './Records';
 import {
   getRoomById,
   leaveRoom,
@@ -196,9 +196,9 @@ const Room: React.FC = () => {
       {error && <div className='error-connection'>{error}</div>}
       {stream && <Recorder stream={stream} onClickGoToRecords={goToRecords} />}
       <FileExplorer roomId={+id} />
-      <section ref={recordsRef} style={{ width: '100%' }}>
+      {/* <section ref={recordsRef} style={{ width: '100%' }}>
         <Records roomId={+id} />
-      </section>
+      </section> */}
     </StyledRoom>
   );
 };

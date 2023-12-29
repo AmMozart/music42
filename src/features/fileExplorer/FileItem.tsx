@@ -4,14 +4,13 @@ import { Button } from 'react-bootstrap';
 import styled from 'styled-components';
 
 import {
-  deleteFile,
-  deleteFolder,
+  deleteItem,
   editItemById,
   fileExplorerActions,
 } from './fileExplorer.slice';
 
 import { useAppDispatch } from '../../app/hooks';
-import { ExplorerItemData } from '../../app/types';
+import { ExplorerItemData, ExplorerItemType } from '../../app/types';
 import {
   CloseButton,
   Message,
@@ -69,10 +68,8 @@ const StyledOptionContainer = styled.div`
   height: 50px;
 `;
 
-type ItemType = 'file' | 'folder';
-
 interface FileListProps {
-  type: ItemType;
+  type: ExplorerItemType;
   file: ExplorerItemData;
 }
 
@@ -92,21 +89,16 @@ const FileItem: React.FC<FileListProps> = ({ file, type }) => {
     setShowOptions(false);
   };
 
-  const deleteItem = () => {
+  const remove = () => {
     setShowOptions(false);
-    if (type === 'folder') {
-      dispatch(deleteFolder(file.id));
-    }
-    if (type === 'file') {
-      dispatch(deleteFile(file.id));
-    }
+    dispatch(deleteItem(file.id));
   };
 
   const openItem = () => {
     if (type === 'folder') {
       dispatch(fileExplorerActions.changeFolderById(file.id));
     }
-    if (type === 'file') {
+    if (type === 'file' || type === 'video') {
       dispatch(fileExplorerActions.openFileById(file.id));
     }
   };
@@ -196,6 +188,35 @@ const FileItem: React.FC<FileListProps> = ({ file, type }) => {
               fill='#536DFE'
             />
           </svg>
+        ) : type === 'video' ? (
+          <svg
+            width='55px'
+            height='55px'
+            viewBox='0 0 1024 1024'
+            xmlns='http://www.w3.org/2000/svg'
+            fill='#000000'
+          >
+            <g id='SVGRepo_bgCarrier' stroke-width='0'></g>
+            <g
+              id='SVGRepo_tracerCarrier'
+              stroke-linecap='round'
+              stroke-linejoin='round'
+            ></g>
+            <g id='SVGRepo_iconCarrier'>
+              <path
+                d='M853.333333 960H170.666667V64h469.333333l213.333333 213.333333z'
+                fill='#90CAF9'
+              ></path>
+              <path
+                d='M821.333333 298.666667H618.666667V96z'
+                fill='#E1F5FE'
+              ></path>
+              <path
+                d='M640 597.333333l-213.333333-128v256z'
+                fill='#1976D2'
+              ></path>
+            </g>
+          </svg>
         ) : null}
         <StyledName>{file.name}</StyledName>
         <StyledOptionContainer onClick={stopHoisting}>
@@ -213,7 +234,7 @@ const FileItem: React.FC<FileListProps> = ({ file, type }) => {
                 type='download'
               />
               <OptionItem
-                onClick={deleteItem}
+                onClick={remove}
                 title={langs('Delete')}
                 type='delete'
               />

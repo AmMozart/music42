@@ -37,15 +37,7 @@ const uploadFolder = async (name: string, folderId: number) => {
   return (await response.json()) as FetchData;
 };
 
-const deleteFolderById = async (id: number) => {
-  const url = `https://music42.com/endpoints/file-explorer/folder/${id}?hash_id=${getHashID()}`;
-
-  const response = await fetch(url, { method: 'DELETE' });
-
-  return (await response.json()) as FetchData;
-};
-
-const deleteFileById = async (id: number) => {
+const deleteItemById = async (id: number) => {
   const url = `https://music42.com/endpoints/file-explorer/file/${id}?hash_id=${getHashID()}`;
 
   const response = await fetch(url, { method: 'DELETE' });
@@ -69,8 +61,7 @@ export {
   uploadFile,
   fetchFilesByRoomId,
   uploadFolder,
-  deleteFolderById,
-  deleteFileById,
+  deleteItemById,
   fetchFilesByFolderId,
   editItemById,
 };
@@ -79,8 +70,7 @@ export const explorerAPI = {
   uploadFile,
   fetchFilesByRoomId,
   uploadFolder,
-  deleteFolderById,
-  deleteFileById,
+  deleteItemById,
   fetchFilesByFolderId,
   editItemById,
 };

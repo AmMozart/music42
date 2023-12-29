@@ -18,6 +18,7 @@ import FileList from './FileList';
 import Navigation from './Navigation';
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { ExplorerItemData } from '../../app/types';
 import { CloseButton, FileViewer, Message } from '../../components';
 import { Input, Modal } from '../../components/UI';
 import { device } from '../../device';
@@ -108,11 +109,14 @@ const FileExplorer: React.FC<FileExplorerProps> = ({ roomId }) => {
   const [folderName, setFolderName] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
-  const [path, setPath] = useState('');
+  const [openFile, setOpenFile] = useState<ExplorerItemData>();
   const [flag, setFlag] = useState(false);
 
   useEffect(() => {
     dispatch(getFilesByRoomId(roomId));
+    return () => {
+      dispatch(fileExplorerActions.clear());
+    };
   }, []);
 
   useEffect(() => {
@@ -137,7 +141,7 @@ const FileExplorer: React.FC<FileExplorerProps> = ({ roomId }) => {
   useEffect(() => {
     const viewFile = explorer.items.find((item) => item.id === fileId);
     if (viewFile) {
-      setPath(`/${viewFile.path}`);
+      setOpenFile(viewFile);
     }
   }, [fileId]);
 
@@ -214,7 +218,7 @@ const FileExplorer: React.FC<FileExplorerProps> = ({ roomId }) => {
             </svg>
             <span>{langs('Close')}</span>
           </StyledBack>
-          <FileViewer path={path} />
+          {openFile && <FileViewer file={openFile} />}
         </StyledFileViewer>
       )}
     </StyledFileExplorer>
